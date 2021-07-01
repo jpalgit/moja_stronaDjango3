@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.tytul }}</h1>
+    <p class="date">
+        Opublikowany {{ post.data_publikacji }} przez {{ post.autor }}
+    </p>  {{ post.tresc|safe }}
+{% endblock %}
+
+{% block javascript %}
+    <script type='text/x-mathjax-config'>
+          MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'],['\\(','\\)']]}
+          });
+    </script>
+    <script type='text/javascript'
+            src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full'>
+    </script>
+    <script src = " {% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %} "> </script>
+    <script> hljs.initHighlightingOnLoad(); </script>
+{% endblock %}

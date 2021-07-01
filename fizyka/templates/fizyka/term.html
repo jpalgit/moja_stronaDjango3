@@ -1,0 +1,169 @@
+{% extends "fizyka/base.html" %}
+{% load static %}
+{% block title %} Termodynamika {% endblock %}
+
+{% block content %}
+    <h4>Dyfuzja i kierunek przebiegu procesu </h4>
+    <i>wg. W.Bolton "Zarys Fizyki"</i><br/>
+Ile jest sposobów rozmieszczenia n cząstek w naczynu z symetryczną przegrodą? <br>
+Dla jednej cząstki mamy dwa sposoby - jest albo w jednej (L) albo w drugiej (P)części.<br/>
+Dla dwóch cząstek mamy już cztery możliwości [1L,1P] [1L2L, ] [ ,1P2P] [2L, 1P]
+(1P - pierwsza cząstka jest w prawej czesci naczynia, itd.) <br/>
+Dla czterech cząstek jest już 16 możliwości. Jest tylko jedna sytuacja gdy wszystkie znajdują się np. w prawej części naczynia.<br/>
+A więc prawdopodobieństwo takiej sytuacji wynosi 1/16.
+Ogólnie dla n cząstek jest 2<sup>n</sup> możliwych rozmieszczeń. Tylko dwa  sposród nich odpowiadają sytuacji, że wszystkie
+są w jednej połowie naczynia. <br/>
+W pokoju o wymiarach 5x4x3m znajduje sie ok. 1,5x10 <sup>27</sup> cząsteczek. <br/>
+Prawdopodobieństwo, że skupią się w jednej połówce wynosi ok.
+$\frac{1}{2^{10^{27}}}$ , czyli jest skrajnie nieprawdopodobne. <br/>
+    Najbardziej prawdopodobny jest równomierny rozkład czastek, ponieważ może być zrealizowany na więcej spoosbów. <br/>
+    Czynnikiem określającym kierunek procesów jest prawdopodobieństwo.
+    Kamień spada na ziemię. Zatrzymuje się, temperatura kamienia i Ziemi rośnie.
+    Procesu odwrotnego nigdy nie obserwujemy, czyli ochłodzenia Ziemi i odskoczenia kamienia na poprzedną wysokość.
+    Przakazanie kwantów energii ziemi jest realizowane na więcej sposobów niż odebranie ich i przekazanie kamieniowi.<br/>
+    Mamy N atomów i n kwantów do rozdzielenia. Na każdy atom może przypaść 0, 1 ...lub nawet n kwantów.
+Dla nierozróżnialnych atomów i kwantów mamy W(N,n) możliwych rozdziałów n kwantów pomiędzy N atomów:<br/>
+    $$W(N,n)=\frac{(N-1+n)!}{(N-1)!n!}$$
+    W poniższym kalkulatorze możesz sobie policzyć. <br/>
+    <div class="container">
+        <div class="row">
+            <div id="sidebar_lewy" class="col-sm-6 ">
+                <div class="panel">
+                <div class="alert alert-danger znika" id="errory" >  </div>
+                    <form  id="kwanty" method="post" name="kwanty" >
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                         <label for="przyp_1" class="control-label col-sm-6"  > {{formularz.atomy.label}}: </label>
+                                            {{formularz.atomy}}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="przyp_2" class="control-label col-sm-6"  > {{formularz.kwanty.label}}: </label>
+                                            {{formularz.kwanty}}
+                                    </div>
+
+
+                                   <div id="wynik" >tu wynik</div>
+                        <input type="button" value="Licz " id="button_licz" class="btn btn-danger"/> <br/> <br/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p> Posługując się tym kalkulatorem można oswoić się z podstawowymi pojęciami termodynamiki jak temperatura,
+        różnica temperatur,czy równowaga cieplna</p>
+
+    <p>Mamy Dwa ciała A(4,4) o czterech atomach i czterech kwantach, i ciało B(4,2) o czterech atomach i dwóch kwantach
+        <br/>
+        Możesz policzyć że W<sub>A</sub>(4,4)=35 i W<sub>B</sub>(4,2) = 10
+        Na każdy z 35 rozkładów w A przypada 10 rozkładów w ciele B. Czyli dla dwu ciał mamy 350 możliwych rozkładów
+        kwantów. <br/>
+        Teraz zabieramy jeden kwant z A i dodajemy go do B! <br/>
+        W<sub>A</sub>(4,3)=20 i W<sub>B</sub>(4,3) = 20 i łączna ilość rozkładów wzrośnie do 400. <br/>
+        Gdybysmy zrobili odwrotnie i przeniesli jeden kwant z B do A to wtedy: <br/>
+        W<sub>A</sub>(4,5)=56 i W<sub>B</sub>(4,1) = 4 i łączna ilość rozkładów wyniesie 224. <br/>
+        Przejscie kwantu z A do B zwiększa ilość możliwości rozmieszczenia kwantów a więc proces będzie przebiegał w tym
+        kierunku. <br/>
+        Możemy powiedzieć, że A ma wyższą temperaturę od ciała B.<br/></p>
+    <h4>Temperatura</h4>
+    Czy temperatura zależy od średniej liczby kwantów na atom? <br />
+    Weżmy ciała A(4,4) i C(2,2) mające jednakową liczbę kwantów na atom.
+    Wiemy już, że W<sub>A</sub>(4,4)=35 i W<sub>C</sub>(2,2)= 3. Łączna liczba rozkładów 35&#183;3 = 105.<br />
+    Zabieramy kwant z C: W<sub>C</sub>(2,1)= 2 i dodajemy do A W<sub>A</sub>(4,5)=56. Łączna liczba rozkładów 2&#183;56 = 112.
+    Liczba rozkładóœ jwst większa niż poczatkowo. Proces taki może zajść czyli temperatura C jest większa niż A.
+    Proces w którym zabieramy kwant z A i dodajemy do C nie jest prawdopodobny ponieważ
+    W<sub>C</sub>(2,3)= 4 i W<sub>A</sub>(4,3)=20 a więc łączna liczba rozkładów maleje do 80.<br />
+    <b>Temperatura nie zależy od średniej liczby kwantów na atom.</b> <br />
+    Dwa ciała o jednakowej liczbie kwantów na atom mają różne temperatury.<br />
+    Inny przykład. <br />
+    <p>Weźmy ciała D(7,9) W<sub>D</sub>(7,9)=5005 i ciało A(4,4) W<sub>A</sub>(4,4)=35 których łącna liczba rozkładów =
+        35&#183;5005=175175<br/>
+        Sprawdamy czy jest prawdobodobny proces przepływu energii z A do D i D do A. <br/>
+        Z A do D... <br/>
+        W<sub>D</sub>(7,10)=8008 zaś W<sub>A</sub>(4,3)=20, razem 160160 - proces nieprawdopodobny <br/>
+        I z ciała D do A...<br/>
+        W<sub>D</sub>(7,8)=3003 zaś W<sub>A</sub>(4,5)=56, razem 168168 - proces też nieprawdopodobny! <br/>
+        Wniosek: A i D mają jednakowe temperatury. Temperatura nie jest określona liczbą kwantów na atom.</p>
+    Jak rozstrzygnąć które ciało ma wyższą temperature? <br/>
+    W przypadku ciał o jednakowej ilości atomów jest jasne, że wyższa temperaturę bedzie miało ciało z większą ilością kwantów.
+    np. temperatura A(4,4) > B(4,2) <br/>
+    Co jednak zrobić z  D(7,9) jak porównać z innymi ciałami?<br/>
+    Można badac czynnik wzrostu liczby rozkładów po dodaniu 1 kwantu:<br/>
+    Ciało B: $ \frac{W(4,3)}{W(4,2)}$ = $\frac{20}{10}$ = 2.0<br/>
+    Ciało C: $ \frac{W(4,4)}{W(4,3)}$ = $\frac{56}{20}$ = 2.0<br/>
+    Ciało A: $ \frac{W(4,5)}{W(4,4)}$ = $\frac{56}{35}$ = 1.6<br/>
+    Ciało D: $ \frac{W(7,10)}{W(7,9)}$ = $\frac{8008}{5005}$ = 1.6<br/>
+    Ciało E: $ \frac{W(4,7)}{W(4,6)}$ = $\frac{120}{84}$ = 1.42<br/>
+    Ciało F: $ \frac{W(4,9)}{W(4,8)}$ = $\frac{220}{165}$ = 1.33<br/>
+    (...)<br/>
+    Ciało X: $ \frac{W(4,101)}{W(4,100)}$ = $\frac{182104}{176851}$ = 1.03<br/>
+    Ciało Y: $ \frac{W(4,1001)}{W(4,1000)}$ = $\frac{168171004}{167668501}$ = 1.003<br/>
+
+Widac, że iloraz $\frac{W'}{W}$ jest odwrotnie proporcjonalny do temperatury i dąży do jedności dla dużej liczby kwantów.<br/>
+    gdzie W' - ilosć rozkładów po dodaniu kwantu energii. <br/>
+    $\frac{W'}{W}\propto \frac{1}{T} $ lub lepiej
+    $\log \frac{W'}{W}\propto \frac{1}{T}$<br/>
+Okazuje się, że logarytm z W'/W jest wprost proporcjonalny do liczby dodanych kwantów, czyli do całkowitej dostarczonej energii cieplnej <br/>
+    "Sprawdzamy" dla ciała z 5 atomami i 8 kwantami. Będziemy dodawać po 1 kwancie i liczyć W'/W, W''/W i W'''/W: <br/>
+    W(5,8)=495, W'(5,9) = 715, W''(5,10)=1001, W'''(5,11)=1365.<br/>
+W'/W = 1,44<br/>
+    po dodaniu dwóch kwantów:
+W''/W = 2,02 &#8771; 1,44<sup>2</sup><br/>
+czyli log(W''/W) = ln(W'/W)<sup>2</sup> = 2log(W'/W)<br/>
+    po dodaniu trzech kwantów:
+W'''/W = 2,76 &#8771; 1,44<sup>3</sup><br/>
+czyli log(W'''/W) = ln(W'/W)<sup>3</sup> = 3log(W'/W)<br/>
+Dla większej ilości atomów i kwantów wyniki są bardziej dokładne.
+    Możemy więc napisać: log(W'''/W) = log(W''') - log(W) = &Delta;log(W)&prop;&Delta;Q <br/>
+    gdzie &Delta;Q to dostarczona ciału energia cieplna. Ostatecznie:
+
+$$\Delta logW \propto \frac{\Delta Q}{T}$$
+    lub inaczej
+    $$k \Delta lnW = \frac{\Delta Q}{T}$$
+    gdzie k - stała Boltzmanna = 1.38&sdot;10<sup>-23</sup>J&sdot;K<sup>-1</sup><br />
+    <i>wg. W.Bolton "Zarys Fizyki"</i>
+    <p>C.D.N.</p>
+{% endblock %}
+
+{% block javascript %}
+
+    <!-- ==============CSRF token for Ajax =====================-->
+{#    <script src=" http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js "></script>#}
+    <script type='text/javascript'>
+    $(document).ready(function() {
+    $('#button_licz').click(function(){
+        $('#errory').html('').hide();
+        $('#wynik').html('');
+        $.ajax({
+            {#url: '{% url "termodynamika" %}', // wywoływany adres widoku z kodem,#}
+            url:'/fizyka/termodynamika/',
+            type: 'POST',
+            dataType: "json",
+            data: $("#kwanty").serialize(),
+            success : function(dane)
+                        {
+                            console.log('Po serializacji formularza: ', $("#kwanty").serialize());
+                            console.log('Dane z widoku: ',dane);
+                            $('#wynik')
+                                .html('')
+                                .append('Ilość rozkładów = ' + dane['wyniki']);
+                        },
+                        error : function()
+                        {
+                            $('#wynik').html('');
+                            $('#errory') .html('') .show() .append('Wprowadź poprawne dane...')
+                        }
+                }); //Ajax
+        return false;
+    });//click.function
+});//ready.function
+</script>
+
+    <script type='text/x-mathjax-config'>
+          MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'],['\\(','\\)']]}
+          });
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,7 @@
+*.pyc
+pycache
+myvenv
+db.sqlite3
+djpta2
+.idea
+blog_post.sql

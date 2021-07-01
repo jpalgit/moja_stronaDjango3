@@ -1,0 +1,26 @@
+{% load static %}
+{# odnosi się do katalogu mojanowa/blog/static #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="{% static 'favicon-16x16.png' %}" type="image/x-icon" />
+        <link href="{% static "css/blog.css" %}" rel="stylesheet">
+        <link rel="stylesheet"
+              href=" {% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css' %} ">
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="sidebar">
+            <h2>Mój blog</h2>
+            <p>To jest mój blog.</p>
+        </div>
+    {% block javascript %}
+
+    {% endblock %}
+
+    </body>
+</html>
